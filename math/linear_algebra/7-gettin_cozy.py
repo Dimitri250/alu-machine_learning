@@ -4,7 +4,6 @@
     that concatenates two matrices along a specific axis
 '''
 
-
 def cat_matrices2D(mat1, mat2, axis=0):
     '''
         The function def cat_matrices2D(mat1, mat2, axis=0)
@@ -15,4 +14,5 @@ def cat_matrices2D(mat1, mat2, axis=0):
     elif axis == 1 and len(mat1) == len(mat2):
         return [mat1[i] + mat2[i] for i in range(len(mat1))]
     else:
-        return None    
+        return None
+    
