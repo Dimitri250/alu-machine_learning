@@ -4,7 +4,6 @@
     that performs matrix multiplication
 '''
 
-
 def mat_mul(mat1, mat2):
     '''
         The function def mat_mul(mat1, mat2)
