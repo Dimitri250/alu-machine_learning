@@ -19,5 +19,4 @@ def mat_mul(mat1, mat2):
             for i in range(len(mat1))
         ]
     else:
-        return None
-    
+        return None    
