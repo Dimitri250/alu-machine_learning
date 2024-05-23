@@ -1,4 +1,6 @@
- function that calculates the inverse of a matrix
+#!/usr/bin/env python3
+"""
+Defines function that calculates the inverse of a matrix
 """
 
 
