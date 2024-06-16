@@ -72,3 +72,4 @@ class MultiNormal:
         pdf_value = norm_factor * np.exp(exponent)
 
         return float(pdf_value)
+    
