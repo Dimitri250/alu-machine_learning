@@ -1,74 +1,66 @@
 #!/usr/bin/env python3
 
-'''This script calculates the Multivers dist and PDF'''
-
+"""
+Defines a function likelihood that calculates the likelihood
+of obtaining data given various hypothetical probabilities
+of developing severe side effects.
+"""
 
 import numpy as np
 
 
-class MultiNormal:
+def likelihood(x, n, P):
     """
-    Represents a Multivariate Normal distribution.
+    Calculates the likelihood of obtaining the observed data
+    given various hypothetical probabilities of developing severe side effects.
+
+    Args:
+        x (int): The number of patients that develop severe side effects.
+        n (int): The total number of patients observed.
+        P (numpy.ndarray): A 1D numpy.ndarray containing the various
+        hypothetical probabilities of developing severe side effects.
+
+    Returns:
+        numpy.ndarray: A 1D numpy.ndarray containing the likelihood
+        of obtaining the data,x and n, for each probability in P, respectively.
+
+    Raises:
+        ValueError: If n is not a positive integer,
+        if x is not an integer that is greater than or equal to 0,
+        if x is greater than n,or if any value in P is not in the range [0, 1].
+        TypeError: If P is not a 1D numpy.ndarray.
     """
+    # Check if n is a positive integer
+    if not isinstance(n, int) or n <= 0:
+        raise ValueError("n must be a positive integer")
 
-    def __init__(self, data):
-        """
-        Class constructor.
+    # Check if x is an integer and greater than or equal to 0
+    if not isinstance(x, int) or x < 0:
+        raise ValueError(
+            "x must be an integer that is greater than or equal to 0")
 
-        Parameters:
-        data (numpy.ndarray): A 2D array of shape (d, n)
-            n (int): The number of data points
-            d (int): The number of dimensions in each data point
+    # Check if x is greater than n
+    if x > n:
+        raise ValueError("x cannot be greater than n")
 
-        Raises:
-        TypeError: If data is not a 2D numpy.ndarray
-        ValueError: If n is less than 2
-        """
-        if not isinstance(data, np.ndarray) or len(data.shape) != 2:
-            raise TypeError("data must be a 2D numpy.ndarray")
+    # Check if P is a 1D numpy.ndarray
+    if not isinstance(P, np.ndarray) or P.ndim != 1:
+        raise TypeError("P must be a 1D numpy.ndarray")
 
-        d, n = data.shape
+    # Check if all values in P are in the range [0, 1]
+    if np.any((P < 0) | (P > 1)):
+        raise ValueError("All values in P must be in the range [0, 1]")
 
-        if n < 2:
-            raise ValueError("data must contain multiple data points")
+    # Calculate the combination using np.math.factorial
+    fact_coefficient = np.math.factorial(
+        n) / (np.math.factorial(x) * np.math.factorial(n - x))
 
-        # Calculate the mean of the data set
-        self.mean = np.mean(data, axis=1).reshape(d, 1)
+    # Calculate likelihoods
+    likelihoods = fact_coefficient * (P ** x) * ((1 - P) ** (n - x))
 
-        # Center the data by subtracting the mean
-        data_centered = data - self.mean
+    return likelihoods
 
-        # Calculate the covariance matrix
-        self.cov = np.dot(data_centered, data_centered.T) / (n - 1)
 
-    def pdf(self, x):
-        """
-        Calculates the PDF at a data point.
-
-        Parameters:
-        x (numpy.ndarray): A 2D array of shape (d, 1)
-        Returns:
-        float: The value of the PDF
-
-        Raises:
-        TypeError: If x is not a numpy.ndarray
-        ValueError: If x is not of shape (d, 1)
-        """
-        if not isinstance(x, np.ndarray):
-            raise TypeError("x must be a numpy.ndarray")
-
-        d = self.mean.shape[0]
-
-        if x.shape != (d, 1):
-            raise ValueError("x must have the shape ({}, 1)".format(d))
-
-        # Calculate the PDF
-        det_cov = np.linalg.det(self.cov)
-        inv_cov = np.linalg.inv(self.cov)
-        norm_factor = 1 / np.sqrt((2 * np.pi) ** d * det_cov)
-        x_centered = x - self.mean
-        exponent = -0.5 * np.dot(np.dot(x_centered.T, inv_cov), x_centered)
-
-        pdf_value = norm_factor * np.exp(exponent)
-
-        return float(pdf_value)
+if __name__ == '__main__':
+    P = np.linspace(0, 1, 21)  # [0.0, 0.05, 0.1, ..., 1.0]
+    print(likelihood(55, 100, P).round(12))
