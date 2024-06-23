@@ -1,9 +1,35 @@
 #!/usr/bin/env python3
 
+"""
+Defines a function likelihood that calculates the likelihood
+of obtaining data given various hypothetical probabilities
+of developing severe side effects.
+"""
+
 import numpy as np
 
+
 def likelihood(x, n, P):
- 
+    """
+    Calculates the likelihood of obtaining the observed data
+    given various hypothetical probabilities of developing severe side effects.
+
+    Args:
+        x (int): The number of patients that develop severe side effects.
+        n (int): The total number of patients observed.
+        P (numpy.ndarray): A 1D numpy.ndarray containing the various
+        hypothetical probabilities of developing severe side effects.
+
+    Returns:
+        numpy.ndarray: A 1D numpy.ndarray containing the likelihood
+        of obtaining the data,x and n, for each probability in P, respectively.
+
+    Raises:
+        ValueError: If n is not a positive integer,
+        if x is not an integer that is greater than or equal to 0,
+        if x is greater than n,or if any value in P is not in the range [0, 1].
+        TypeError: If P is not a 1D numpy.ndarray.
+    """
     # Check if n is a positive integer
     if not isinstance(n, int) or n <= 0:
         raise ValueError("n must be a positive integer")
@@ -38,3 +64,4 @@ def likelihood(x, n, P):
 if __name__ == '__main__':
     P = np.linspace(0, 1, 21)  # [0.0, 0.05, 0.1, ..., 1.0]
     print(likelihood(55, 100, P).round(12))
+    
