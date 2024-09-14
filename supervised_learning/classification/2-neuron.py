@@ -7,7 +7,6 @@ import numpy as np
 class Neuron:
     """
         Initialize a Neuron performing binary classification.
-
         Args:
             nx (int): The number of input features to the neuron.
         Raises:
@@ -42,7 +41,6 @@ class Neuron:
     def forward_prop(self, X):
         """
         Calculates the forward propagation of the neuron.
-
         Args: X (numpy.ndarray): Input data of shape (nx, m), where
         nx is the number of input features
         and m is the number of examples.
