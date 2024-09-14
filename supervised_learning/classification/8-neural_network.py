@@ -5,21 +5,19 @@ import numpy as np
 
 
 class NeuralNetwork:
-   """
-Public instance attributes:
-    W1 (ndarray): The weights vector for the hidden layer.
-        - Initialized using a random normal distribution upon instantiation.
-    b1 (ndarray): The bias for the hidden layer.
-        - Initialized to 0 upon instantiation.
-    A1 (ndarray): The activated output of the hidden layer.
-        - Initialized to 0 upon instantiation.
-    W2 (ndarray): The weights vector for the output neuron.
-        - Initialized using a random normal distribution upon instantiation.
-    b2 (ndarray): The bias for the output neuron.
-        - Initialized to 0 upon instantiation.
-    A2 (ndarray): The activated output of the output neuron (prediction).
-        - Initialized to 0 upon instantiation.
-"""
+    '''Public instance attributes:
+    W1: The weights vector for the hidden layer. Upon instantiation,
+    it should be initialized using a random normal distribution.
+    b1: The bias for the hidden layer. Upon instantiation,
+    it should be initialized with 0’s.
+    A1: The activated output for the hidden layer.
+    Upon instantiation, it should be initialized to 0.
+    W2: The weights vector for the output neuron. Upon instantiation,
+    it should be initialized using a random normal distribution.
+    b2: The bias for the output neuron. Upon instantiation,
+    it should be initialized to 0.
+    A2: The activated output for the output neuron (prediction).
+    Upon instantiation, it should be initialized to 0.'''
 
     def __init__(self, nx, nodes):
         if not isinstance(nx, int):
