@@ -6,7 +6,7 @@ import numpy as np
 
 class DeepNeuralNetwork:
     '''A class'''
-    
+
     def __init__(self, nx, layers):
         '''A function'''
         if not isinstance(nx, int):
