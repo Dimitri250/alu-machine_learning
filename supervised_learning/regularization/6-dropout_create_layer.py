@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
     A function def dropout_create_layer(prev, n, activation, keep_prob):
     that creates a layer of a neural network using dropout:
